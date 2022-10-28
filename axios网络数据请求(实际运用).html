@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="素材/axios.js"></script>
+    <!-- axios是专门用于网络数据请求的库 -->
+    <!-- 原理也是差不多，是对原生进行封装，比jquery更加方便 -->
+  </head>
+  <body>
+    <button id="btn1">发起get请求</button>
+    <button id="btn2">发起post请求</button>
+    <button id="btn3">直接使用axios发送get请求</button>
+    <button id="btn4">直接使用axios发送post请求</button>
+    <script>
+      //axios发送get请求
+      document.querySelector("#btn1").addEventListener("click", function () {
+        //请求地址
+        var url = "http://www.liulongbin.top:3006/api/get";
+        //请求参数对象
+        var paramsObj = { name: "zs", age: 20 };
+        //调用 axios.get（） 发起get请求
+        axios.get(url, { params: paramsObj }).then(function (res) {
+          // 返回数据的 res.data
+          // var result = res.data;     //如果没有赋值属性，这里打印的是axios包装的属性
+          console.log(res);
+        });
+      });
+
+      //axios 发送post请求
+      document.querySelector("#btn2").addEventListener("click", function () {
+        var url = "http://www.liulongbin.top:3006/api/post";
+        // post输入接口后直接提交数据即可
+        var dataObj = { address: "北京", location: "顺义区" };
+        axios.post(url, dataObj).then(function (res) {
+          //.then(function(){})  回调函数
+          console.log(res.data);
+        });
+      });
+
+      //直接axios发起get请求
+      document.querySelector("#btn3").addEventListener("click", function () {
+        var url = "http://www.liulongbin.top:3006/api/get";
+        var paramsObj2 = { name: "钢铁侠", age: 35 };
+        axios({
+          method: "GET",
+          url: url,
+          params: paramsObj2, //params译为参数，即获取指定要求参数
+        }).then(function (res) {
+          console.log(res.data);
+        });
+      });
+
+      //直接axios发起post请求
+      document.querySelector("#btn4").addEventListener("click", function () {
+        axios({
+          method: "POST",
+          url: "http://www.liulongbin.top:3006/api/post",
+          data: {
+            name: "进击的程序员",
+            age: 18,
+            gender: "男",
+          },
+        }).then(function (res) {
+          console.log(res.data);
+        });
+      });
+    </script>
+  </body>
+</html>
